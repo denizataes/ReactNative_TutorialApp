@@ -10,10 +10,11 @@ import { useEffect } from 'react'
 import { getAllPosts,getLatestPosts } from '../../lib/appwrite'
 import useAppwrite from '../../lib/useAppwrite'
 import VideoCard from '../../components/VideoCard'
+import { useGlobalContext } from '../../context/GlobalProvider'
 const Home = () => {
   const { data: posts, isLoading, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts} = useAppwrite(getLatestPosts);
-
+  const { user, setUser, setIsLogged } = useGlobalContext();
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = async () => {
@@ -35,7 +36,7 @@ const Home = () => {
               <View className="justify-between items-start flex-row mb-6">
                 <View>
                   <Text className="font-pmedium text-sm text-gray-100">Welcome Back</Text>
-                  <Text className="text-xl font-psemibold text-white">denizataes</Text>
+                  <Text className="text-xl font-psemibold text-white">{user?.username}</Text>
                 </View>
 
                 <View className="mt-1.5">
